@@ -161,7 +161,7 @@
             "title": "Full details (includeDetails)",
             "type": "boolean",
             "editor": "checkbox",
-            "description": "Tick to add the full details of each job: the description as text and HTML, pay as numbers with its currency, and the address. The run reads each saved job once more. A job with details costs $4.00 per 1,000 instead of $3.00.",
+            "description": "Tick to add the full details of each job: the description as text and HTML, pay as numbers with its currency, and the address. The run reads each saved job once more. A job with details costs $5.00 per 1,000 instead of $4.00.",
             "default": false,
             "nullable": true
         },

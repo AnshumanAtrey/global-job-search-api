@@ -43,14 +43,14 @@ Source: https://github.com/AnshumanAtrey/job-boards-search
 ## Pricing
 
 Pay per event, platform usage included, no monthly fee:
-- Job: $0.003 ($3.00 per 1,000) on FREE and BRONZE, $0.0027 on SILVER, $0.0024 on GOLD and above; also one checked link that is closed or not found.
-- Job with details: $0.004 on FREE and BRONZE, $0.0036 on SILVER, $0.0032 on GOLD and above.
-- Board searched: $0.005 for each board a search reads, when the run starts (18 when every board is searched); checking job links charges none.
-- Examples: 100 jobs from all 18 boards $0.39; 50 jobs from 5 boards $0.175; 100 jobs from all 18 boards with full details $0.49. Apify's free $5 monthly credit covers about 12 runs of 100 jobs on all 18 boards.
+- Job: $0.004 ($4.00 per 1,000) on FREE and BRONZE, $0.0036 on SILVER, $0.0032 on GOLD and above; also one checked link that is closed or not found.
+- Job with details: $0.005 on FREE and BRONZE, $0.0045 on SILVER, $0.004 on GOLD and above.
+- Board searched: $0.01 for each board a search reads, when the run starts (18 when every board is searched); checking job links charges none.
+- Examples: 100 jobs from all 18 boards $0.58; 50 jobs from 5 boards $0.25; 100 jobs from all 18 boards with full details $0.68. Apify's free $5 monthly credit covers about 8 runs of 100 jobs on all 18 boards.
 
 ## Speed
 
-Minutes, because the boards are read at the same time. Laptop, 2026-11-13: software engineer on 16 boards took 255 s in one run against 938 s one board at a time; data analyst in London on all 18 boards took 215 s (Greenhouse reads all of its 8,357 job boards); peak memory 0.75 GB.
+Minutes, because the boards are read at the same time, the company career sites each in a process of their own. Apify, default 8 GB, 2026-11-13: data analyst in London on all 18 boards took 236 s and read every company on every board; software engineer on 5 boards took 113 s. One CPU core per 4 GB: at 4 GB an 18-board search is cut at Time per board.
 
 ## How to call it
 
@@ -112,7 +112,7 @@ Minutes, because the boards are read at the same time. Laptop, 2026-11-13: softw
 
 - Job boards and company career sites in one run, India's job boards included; the multi-board actors with 80+ users on 2026-11-13 read either applicant tracking systems or general job boards.
 - Read live at run time, not from an index; each job once across boards; titles hold your words.
-- Cheaper alternatives for narrower needs: bovi ($0.0015), yugenox ($0.002) and jtpalms ($0.003) for Greenhouse, Lever and Ashby only.
+- Cheaper alternatives for narrower needs: bovi ($0.0015), yugenox ($0.002) and jtpalms ($0.003) for Greenhouse, Lever and Ashby only; most multi-board actors cost less than a search of all 18 boards here ($0.58 for 100 jobs).
 
 ## Sibling actors
 

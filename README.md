@@ -2,7 +2,7 @@
 
 Job search API for 18 job boards at once: type a job title and get the newest matching jobs from Hiring Cafe, Greenhouse, Lever, Workday, Ashby, SmartRecruiters, Workable, Cornerstone, Deel, Y Combinator, Wellfound, Welcome to the Jungle (with Otta), eFinancialCareers, Naukri, foundit, Instahyre, Hirist and Cutshort, searched live and in parallel, each job once. Every row has the title, company, places, remote or office, job type, published pay, posting date, the board it came from and the apply link. Turn on full details for the description.
 
-Use it as one multi job board scraper and API with no login and no API key, an ATS jobs API for company career sites, a job aggregator feed for your own job board, or a daily job alert, from the Apify Console, the Apify API, Python, JavaScript, n8n, Make or an AI agent over MCP, and export JSON, CSV or Excel. It is the alternative to running 18 job scrapers one after another: every board is searched at the same time, so a run takes about as long as its slowest board. Available as an [Apify Actor](https://apify.com/anshumanatrey/job-boards-search). $0.003 per job, $0.004 with full details, and $0.005 per board searched.
+Use it as one multi job board scraper and API with no login and no API key, an ATS jobs API for company career sites, a job aggregator feed for your own job board, or a daily job alert, from the Apify Console, the Apify API, Python, JavaScript, n8n, Make or an AI agent over MCP, and export JSON, CSV or Excel. It is the alternative to running 18 job scrapers one after another: every board is searched at the same time, so a run takes about as long as its slowest board. Available as an [Apify Actor](https://apify.com/anshumanatrey/job-boards-search). $0.004 per job, $0.005 with full details, and $0.01 per board searched.
 
 **Use it from an AI assistant:**
 
@@ -37,21 +37,21 @@ Use it as one multi job board scraper and API with no login and no API key, an A
 
 ## How much does it cost to search 18 job boards?
 
-Pay per event: $3.00 per 1,000 jobs, or $4.00 per 1,000 with full details, plus $0.005 for each board a search reads, charged when the run starts. Apify's free $5 monthly credit covers about 12 runs of 100 jobs on all 18 boards, or about 28 runs of 50 jobs on 5 boards. Platform usage is included, and there is no monthly fee.
+Pay per event: $4.00 per 1,000 jobs, or $5.00 per 1,000 with full details, plus $0.01 for each board a search reads, charged when the run starts. Apify's free $5 monthly credit covers about 8 runs of 100 jobs on all 18 boards, or about 20 runs of 50 jobs on 5 boards. Platform usage is included, and there is no monthly fee.
 
 | Event | Price | When it is charged |
 |---|---|---|
-| Job | $0.003 | One saved job, and one checked job link that is closed or not found |
-| Job with details | $0.004 | One saved job with full details on |
-| Board searched | $0.005 | Once for each board a search reads, when the run starts (18 when every board is searched); checking job links charges none |
+| Job | $0.004 | One saved job, and one checked job link that is closed or not found |
+| Job with details | $0.005 | One saved job with full details on |
+| Board searched | $0.01 | Once for each board a search reads, when the run starts (18 when every board is searched); checking job links charges none |
 
-On Apify's paid plans a job costs less: $0.003 on BRONZE, $0.0027 on SILVER and $0.0024 on GOLD and above; a job with details $0.004, $0.0036 and $0.0032. The board fee is the same on every plan.
+On Apify's paid plans a job costs less: $0.004 on BRONZE, $0.0036 on SILVER and $0.0032 on GOLD and above; a job with details $0.005, $0.0045 and $0.004. The board fee is the same on every plan.
 
 | Run | Cost |
 |---|---|
-| 100 jobs from all 18 boards | $0.39 |
-| 50 jobs from 5 boards | $0.175 |
-| 100 jobs from all 18 boards with full details | $0.49 |
+| 100 jobs from all 18 boards | $0.58 |
+| 50 jobs from 5 boards | $0.25 |
+| 100 jobs from all 18 boards with full details | $0.68 |
 
 Set a maximum cost per run in Apify and the run reads only the boards that fit, keeping room for at least one job, then stops saving at the limit.
 
@@ -71,9 +71,9 @@ Every actor on the Apify Store that searches several job boards or applicant tra
 | memo23/career-site-ats-jobs-api | 84 | 116 ATS, fetched at run time | $0.004 | $0.03 | $0.43 |
 | bovi/greenhouse-lever-ashby-job-scraper | 80 | Greenhouse, Lever and Ashby, by company or preset list | $0.0015 | $0.00005 | $0.15 |
 | jtpalms/ats-jobs-index | 80 | 17,000 career sites, indexed twice a day | $0.003 | $0.00005 | $0.30 |
-| **This actor** | new | 18 boards: 10 job boards and 8 ATS, live | $0.003 | $0.005 a board | $0.39 (18 boards) |
+| **This actor** | new | 18 boards: 10 job boards and 8 ATS, live | $0.004 | $0.01 a board | $0.58 (18 boards), $0.45 (5 boards) |
 
-Where others are cheaper: bovi, yugenox and jtpalms cost less for 100 jobs when Greenhouse, Lever and Ashby are all you need, and fantastic-jobs' feed and agentx cost a few cents less than a search of all 18 boards here. For one board, the matching actor below costs far less: Hiring Cafe Jobs Scraper charges $0.000062 a job. Where others do more: the database actors cover more applicant tracking systems (58 to 200+) and add AI-extracted fields.
+Where others are cheaper: all but fantastic-jobs' API cost less than a search of all 18 boards here, because this actor reads every company on every board at the moment of your run, and the board fee pays for that reading; a search of 5 boards ($0.45) costs less than hirebase and factpipe. bovi, yugenox and jtpalms cost far less when Greenhouse, Lever and Ashby are all you need. For one board, the matching actor below costs far less: Hiring Cafe Jobs Scraper charges $0.000062 a job. Where others do more: the database actors cover more applicant tracking systems (58 to 200+) and add AI-extracted fields.
 
 ## Which inputs does it take?
 
@@ -151,7 +151,7 @@ Each board adds the fields its own actor gives, such as Hiring Cafe's `seniority
 
 ## How fast is it?
 
-Minutes, because the boards are read at the same time. Measured on a laptop on 2026-11-13: software engineer on 16 boards (all but Ashby and Instahyre) took 255 s in one run, while the same search one board at a time adds up to 938 s. Data analyst in London on all 18 boards took 215 s: Greenhouse reads all of its 8,357 job boards (214 s), Lever and Ashby took under 3 minutes, and Hiring Cafe, Wellfound, Welcome to the Jungle and the India boards answered in 4 to 54 s. A run over all 18 boards peaked at 0.75 GB of memory.
+Minutes, because the boards are read at the same time, the company career sites each in a process of their own. On Apify at the default 8 GB on 2026-11-13: data analyst in London on all 18 boards took 236 s and read every company on every board (Greenhouse's 8,357 job boards in 178 s, Ashby's 3,814 in 83 s, SmartRecruiters' 2,917 in 130 s, Lever's 2,396 in 145 s, Workday's 2,207 in 231 s); the job boards with their own search answered in 2 to 77 s. The example input, software engineer on 5 boards, took 113 s. Apify gives a run one CPU core for each 4 GB: at 4 GB, a search of all 18 boards is cut at Time per board (`secondsPerBoard`) with part of the big boards unread, and 16 GB runs faster. On a laptop the same day, software engineer on 16 boards took 255 s in one run, while the same search one board at a time added up to 938 s.
 
 ## Common questions
 
@@ -165,7 +165,7 @@ Company career sites have no search of their own across companies, so Greenhouse
 
 ### How does it keep each job once?
 
-A job is left out when a board earlier in the newest-first list already gave the same job link, the same company and title in the same city, or the same company and title posted at the same second. In a search for data analyst in London on all 18 boards (laptop, 2026-11-13), 24 jobs that two boards listed were saved once.
+A job is left out when a board earlier in the newest-first list already gave the same job link, the same company and title in the same city, or the same company and title posted at the same second. In a search for data analyst in London on all 18 boards (Apify, 2026-11-13), 31 jobs that two boards listed were saved once; in the example input's software engineer search on 5 boards, 40.
 
 ### Why did a board return nothing?
 
@@ -173,7 +173,7 @@ Its jobs may be older than the newest jobs of the other boards (raise Number of 
 
 ### Does it work on Apify's free plan?
 
-Job Boards Search works on Apify's free plan, which pays $0.003 a job and $0.005 a board. The free $5 monthly credit pays for about 12 runs of 100 jobs on all 18 boards.
+Job Boards Search works on Apify's free plan, which pays $0.004 a job and $0.01 a board. The free $5 monthly credit pays for about 8 runs of 100 jobs on all 18 boards, or 20 runs of 50 jobs on 5 boards.
 
 ### How often should I run it?
 
@@ -231,6 +231,8 @@ Job Boards Search reads public job postings, the pages any visitor sees without 
 - A run takes about as long as its slowest board, up to Time per board (`secondsPerBoard`, 240 seconds by default); a board stopped there delivers what it found, and the OUTPUT record says so.
 - Experience (`experienceYears`) keeps only jobs that state years: company career sites state none, so with it set only Hiring Cafe, Y Combinator, Wellfound, Welcome to the Jungle and the India boards can match.
 - Each board keeps the limits of its own actor: Workable's jobs feed can end before today's jobs, Instahyre reads its jobs one by one, and HiringCafe shows a search's newest 10,000 employers.
+- Read fast, Workday answers some career sites with HTTP 429: a run can miss a few of its 2,207 sites (8 in one run of 2026-11-13), named in the OUTPUT record.
+- The default 8 GB of memory is what reads all 18 boards in full in about four minutes; a run at 4 GB gets one CPU core and cuts the biggest boards at Time per board.
 - Pay is published on part of the jobs only, and `salary` is empty for the rest.
 - Places are matched as each board writes them, so a US city next to United States finds more.
 - Two listings of one job written differently on two boards (another title, another city) can both be saved.

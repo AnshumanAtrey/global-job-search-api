@@ -25,8 +25,8 @@
   "maxJobs": 100
  },
  "pricing": {
-  "$comment": "2026-11-13, PROPOSED, apply false until the unpriced cost of a run is measured on Apify. Rule: rules/SEO.md section 16. Closest rival: agentx/all-jobs-scraper (42 platforms, 204 u30): $0.0035 a job + $0.01 start on FREE; job is 14% under it. Others with 80+ u30: fantastic-jobs API $0.012 + $0.01, feed $0.0025 + $0.10, jobo $0.004, hirebase $0.005, factpipe $0.005, yugenox $0.002, memo23 $0.004 + $0.03, bovi $0.0015, jtpalms $0.003. board: one per board a search reads, charged as the run starts (ats_jobs.many.charge_boards), because a search scans every board whatever it saves; flat on every plan like start fees. No apify-actor-start: the board fee is the start fee. Gentle ladder (owner, 2026-10-29) on job and job-details.",
-  "apply": false,
+  "$comment": "2026-11-13, first pricing while private, measured on Apify (build 1.0.3, engine 0.7.2, unpriced, 8 GB): all 18 boards, data analyst in London, 50 jobs: 236 s, $0.113 platform usage (run TJaEOQIdXUZvVlrZY); the example input (5 boards, 100 jobs): 113 s, $0.057 (run h5vOveiMdjdtEtK4Q). Rule: rules/SEO.md section 16. Rivals with 80+ u30 on 2026-11-13 (100 jobs, free plan, start at default memory): fantastic-jobs API $1.21 (1,607 u30), hirebase $0.50, factpipe $0.50, memo23 $0.43, jobo $0.40, agentx $0.36 (42 platforms, the closest product), fantastic feed $0.35, jtpalms $0.30, yugenox $0.20, bovi $0.15. job $0.004 sits under hirebase and factpipe ($0.005). board $0.01: a search reads every company on each board whatever it saves, so the fee pays for the scan (18 boards $0.18 against $0.113 of usage). Margin, FREE, platform cost against 0.8 x revenue: all 18 boards + 100 jobs ($0.58) 76%, + 50 jobs ($0.38) 63%; 5 boards + 100 jobs ($0.45) 84%. Gentle ladder (owner, 2026-10-29) on job and job-details; board flat like start fees. No apify-actor-start: the board fee is the start fee. Owner to confirm before isPublic.",
+  "apply": true,
   "pricingInfos": [
    {
     "pricingModel": "PAY_PER_EVENT",
@@ -37,30 +37,6 @@
        "eventTitle": "Job",
        "eventDescription": "One saved job row: title, company, places, work type, job type, pay, posting date, the board it came from and its links. Also one checked job link that is closed or not found.",
        "isPrimaryEvent": true,
-       "eventTieredPricingUsd": {
-        "FREE": {
-         "tieredEventPriceUsd": 0.003
-        },
-        "BRONZE": {
-         "tieredEventPriceUsd": 0.003
-        },
-        "SILVER": {
-         "tieredEventPriceUsd": 0.0027
-        },
-        "GOLD": {
-         "tieredEventPriceUsd": 0.0024
-        },
-        "PLATINUM": {
-         "tieredEventPriceUsd": 0.0024
-        },
-        "DIAMOND": {
-         "tieredEventPriceUsd": 0.0024
-        }
-       }
-      },
-      "job-details": {
-       "eventTitle": "Job with details",
-       "eventDescription": "One saved job row with full details on: everything in a Job row plus the description as text and HTML, pay as numbers with its currency, and the address.",
        "eventTieredPricingUsd": {
         "FREE": {
          "tieredEventPriceUsd": 0.004
@@ -82,10 +58,34 @@
         }
        }
       },
+      "job-details": {
+       "eventTitle": "Job with details",
+       "eventDescription": "One saved job row with full details on: everything in a Job row plus the description as text and HTML, pay as numbers with its currency, and the address.",
+       "eventTieredPricingUsd": {
+        "FREE": {
+         "tieredEventPriceUsd": 0.005
+        },
+        "BRONZE": {
+         "tieredEventPriceUsd": 0.005
+        },
+        "SILVER": {
+         "tieredEventPriceUsd": 0.0045
+        },
+        "GOLD": {
+         "tieredEventPriceUsd": 0.004
+        },
+        "PLATINUM": {
+         "tieredEventPriceUsd": 0.004
+        },
+        "DIAMOND": {
+         "tieredEventPriceUsd": 0.004
+        }
+       }
+      },
       "board": {
        "eventTitle": "Board searched",
        "eventDescription": "Charged once for each job board a search reads, when the run starts: 18 when every board is searched. It pays for reading every company on that board, whatever the search saves. Checking job links charges none.",
-       "eventPriceUsd": 0.005
+       "eventPriceUsd": 0.01
       }
      }
     }
