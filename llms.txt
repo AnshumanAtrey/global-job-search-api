@@ -1,20 +1,20 @@
-# Job Search API - Greenhouse, Lever, Workday, Ashby & 14 More
+# Global Job Search API - Remote Jobs, All-in-One, 18 Job Boards
 
-> Job search API for 18 job boards in one run: Hiring Cafe, Greenhouse, Lever, Workday, Ashby, SmartRecruiters, Workable, Y Combinator and Wellfound, newest first, each job once.
+> Global job search API and job aggregator: one run searches 18 job boards worldwide, remote jobs too, newest first, each job once.
 
 ## Summary
 
-Job Boards Search is an Apify actor that searches 18 job boards live and in parallel in one run, and returns one row per job, newest first across all of them, each job once: title, company, places, remote or office, job type, published pay, posting date, the board it came from (platform) and the job and apply links; with full details, the description and pay as numbers. The boards: job boards that index jobs themselves (Hiring Cafe, Y Combinator's Work at a Startup, Wellfound, Welcome to the Jungle with Otta, eFinancialCareers, Naukri, foundit, Instahyre, Hirist, Cutshort) and company career sites on eight applicant tracking systems (Greenhouse 8,357 job boards, Lever 2,396, Workday 2,207, Ashby 3,814, SmartRecruiters 2,917, Workable 2,196, Cornerstone 1,110, Deel 161). A job listed on two boards is saved once. No login and no API key.
+Global Job Search API is an Apify actor, a universal all-in-one job search, that searches 18 job boards worldwide live and in parallel in one run, and returns one row per job, newest first across all of them, each job once: title, company, places, remote or office, job type, published pay, posting date, the board it came from (platform) and the job and apply links; with full details, the description and pay as numbers. The boards: job boards that index jobs themselves (Hiring Cafe, Y Combinator's Work at a Startup, Wellfound, Welcome to the Jungle with Otta, eFinancialCareers, Naukri, foundit, Instahyre, Hirist, Cutshort) and company career sites on eight applicant tracking systems (Greenhouse 8,357 job boards, Lever 2,396, Workday 2,207, Ashby 3,814, SmartRecruiters 2,917, Workable 2,196, Cornerstone 1,110, Deel 161). A job listed on two boards is saved once. No login and no API key.
 
-Store: https://apify.com/anshumanatrey/job-boards-search
-Source: https://github.com/AnshumanAtrey/job-boards-search
+Store: https://apify.com/anshumanatrey/global-job-search-api
+Source: https://github.com/AnshumanAtrey/global-job-search-api
 
 ## Use it from an AI assistant
 
-- Claude (claude.ai and the desktop app): https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Job%20Boards%20Search&connectorUrl=https%3A%2F%2Fmcp.apify.com%3Ftools%3Danshumanatrey%2Fjob-boards-search (click Continue, sign in to Apify, Allow).
-- Claude Code: claude mcp add --transport http job-boards-search "https://mcp.apify.com?tools=anshumanatrey/job-boards-search", then /mcp to sign in to Apify.
-- Codex: codex mcp add job-boards-search --url "https://mcp.apify.com?tools=anshumanatrey/job-boards-search", then codex mcp login job-boards-search.
-- Any other MCP client: https://mcp.apify.com?tools=anshumanatrey/job-boards-search, signed in with Apify or Authorization: Bearer <APIFY_TOKEN>.
+- Claude (claude.ai and the desktop app): https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Global%20Job%20Search&connectorUrl=https%3A%2F%2Fmcp.apify.com%3Ftools%3Danshumanatrey%2Fglobal-job-search-api (click Continue, sign in to Apify, Allow).
+- Claude Code: claude mcp add --transport http global-job-search-api "https://mcp.apify.com?tools=anshumanatrey/global-job-search-api", then /mcp to sign in to Apify.
+- Codex: codex mcp add global-job-search-api --url "https://mcp.apify.com?tools=anshumanatrey/global-job-search-api", then codex mcp login global-job-search-api.
+- Any other MCP client: https://mcp.apify.com?tools=anshumanatrey/global-job-search-api, signed in with Apify or Authorization: Bearer <APIFY_TOKEN>.
 
 ## Key features
 
@@ -54,10 +54,10 @@ Minutes, because the boards are read at the same time, the company career sites 
 
 ## How to call it
 
-- Apify API: POST https://api.apify.com/v2/acts/anshumanatrey~job-boards-search/run-sync-get-dataset-items with a JSON body such as {"searchTerms": ["data analyst"], "platforms": ["hiringcafe", "greenhouse"]}.
-- Python and JavaScript: apify-client, actor "anshumanatrey/job-boards-search".
+- Apify API: POST https://api.apify.com/v2/acts/anshumanatrey~global-job-search-api/run-sync-get-dataset-items with a JSON body such as {"searchTerms": ["data analyst"], "platforms": ["hiringcafe", "greenhouse"]}.
+- Python and JavaScript: apify-client, actor "anshumanatrey/global-job-search-api".
 - n8n and Make: the Apify node or app, Run an Actor and get its dataset.
-- MCP: https://mcp.apify.com?tools=anshumanatrey/job-boards-search
+- MCP: https://mcp.apify.com?tools=anshumanatrey/global-job-search-api
 
 ## When to use
 
@@ -137,8 +137,8 @@ Minutes, because the boards are read at the same time, the company career sites 
 
 ## Documentation
 
-- Apify Store: https://apify.com/anshumanatrey/job-boards-search
-- GitHub: https://github.com/AnshumanAtrey/job-boards-search (MIT)
+- Apify Store: https://apify.com/anshumanatrey/global-job-search-api
+- GitHub: https://github.com/AnshumanAtrey/global-job-search-api (MIT)
 - Engine: https://github.com/AnshumanAtrey/ats-jobs-engine
 
 ## Maintainer

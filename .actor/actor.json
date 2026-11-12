@@ -1,8 +1,8 @@
 {
     "actorSpecification": 1,
-    "name": "job-boards-search",
-    "title": "Job Search API - Greenhouse, Lever, Workday, Ashby & 14 More",
-    "description": "Job search API for 18 job boards in one run: Hiring Cafe, Greenhouse, Lever, Workday, Ashby, SmartRecruiters, Workable, Y Combinator and Wellfound, newest first, each job once. Plus Naukri, foundit, Instahyre, Hirist, Cutshort, eFinancialCareers, Welcome to the Jungle, Cornerstone and Deel.",
+    "name": "global-job-search-api",
+    "title": "Global Job Search API - Remote Jobs, All-in-One, 18 Job Boards",
+    "description": "Global job search API and job aggregator: one run searches 18 job boards worldwide, remote jobs too, newest first, each job once. Hiring Cafe, Greenhouse, Lever, Workday, Ashby, SmartRecruiters, Workable, Y Combinator, Wellfound, Welcome to the Jungle, Naukri and 7 more.",
     "version": "1.0",
     "buildTag": "latest",
     "categories": [

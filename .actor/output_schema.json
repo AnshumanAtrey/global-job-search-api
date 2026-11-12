@@ -1,6 +1,6 @@
 {
     "actorOutputSchemaVersion": 1,
-    "title": "Job Boards Search output",
+    "title": "Global Job Search output",
     "description": "The jobs found on every board searched, one row per job, newest first, in the default dataset (switch between the Jobs and Details views), plus a run summary record.",
     "type": "object",
     "properties": {

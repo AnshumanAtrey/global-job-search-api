@@ -1,15 +1,15 @@
-# Job Search API - Greenhouse, Lever, Workday, Ashby & 14 More
+# Global Job Search API - Remote Jobs, All-in-One, 18 Job Boards
 
-Job search API for 18 job boards at once: type a job title and get the newest matching jobs from Hiring Cafe, Greenhouse, Lever, Workday, Ashby, SmartRecruiters, Workable, Cornerstone, Deel, Y Combinator, Wellfound, Welcome to the Jungle (with Otta), eFinancialCareers, Naukri, foundit, Instahyre, Hirist and Cutshort, searched live and in parallel, each job once. Every row has the title, company, places, remote or office, job type, published pay, posting date, the board it came from and the apply link. Turn on full details for the description.
+Global job search API for 18 job boards at once, worldwide and remote: type a job title and get the newest matching jobs from Hiring Cafe, Greenhouse, Lever, Workday, Ashby, SmartRecruiters, Workable, Cornerstone, Deel, Y Combinator, Wellfound, Welcome to the Jungle (with Otta), eFinancialCareers, Naukri, foundit, Instahyre, Hirist and Cutshort, searched live and in parallel, each job once. Every row has the title, company, places, remote or office, job type, published pay, posting date, the board it came from and the apply link. Turn on full details for the description.
 
-Use it as one multi job board scraper and API with no login and no API key, an ATS jobs API for company career sites, a job aggregator feed for your own job board, or a daily job alert, from the Apify Console, the Apify API, Python, JavaScript, n8n, Make or an AI agent over MCP, and export JSON, CSV or Excel. It is the alternative to running 18 job scrapers one after another: every board is searched at the same time, so a run takes about as long as its slowest board. Available as an [Apify Actor](https://apify.com/anshumanatrey/job-boards-search). $0.004 per job, $0.005 with full details, and $0.01 per board searched.
+Use it as an all-in-one, universal job search: one multi job board scraper and API with no login and no API key, an ATS jobs API for company career sites, a job aggregator feed for your own job board, or a daily job alert, from the Apify Console, the Apify API, Python, JavaScript, n8n, Make or an AI agent over MCP, and export JSON, CSV or Excel. It is the alternative to running 18 job scrapers one after another: every board is searched at the same time, so a run takes about as long as its slowest board. Available as an [Apify Actor](https://apify.com/anshumanatrey/global-job-search-api). $0.004 per job, $0.005 with full details, and $0.01 per board searched.
 
 **Use it from an AI assistant:**
 
-- **Claude** (claude.ai and the desktop app): [Add Job Boards Search to Claude](https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Job%20Boards%20Search&connectorUrl=https%3A%2F%2Fmcp.apify.com%3Ftools%3Danshumanatrey%2Fjob-boards-search), click Continue, sign in to Apify, Allow, and ask in plain words.
-- **Claude Code:** `claude mcp add --transport http job-boards-search "https://mcp.apify.com?tools=anshumanatrey/job-boards-search"`, then run `/mcp` to sign in to Apify.
-- **Codex:** `codex mcp add job-boards-search --url "https://mcp.apify.com?tools=anshumanatrey/job-boards-search"`, then `codex mcp login job-boards-search`.
-- **Any other MCP client:** `https://mcp.apify.com?tools=anshumanatrey/job-boards-search`, signed in with Apify or an `Authorization: Bearer <APIFY_TOKEN>` header.
+- **Claude** (claude.ai and the desktop app): [Add Global Job Search to Claude](https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Global%20Job%20Search&connectorUrl=https%3A%2F%2Fmcp.apify.com%3Ftools%3Danshumanatrey%2Fglobal-job-search-api), click Continue, sign in to Apify, Allow, and ask in plain words.
+- **Claude Code:** `claude mcp add --transport http global-job-search-api "https://mcp.apify.com?tools=anshumanatrey/global-job-search-api"`, then run `/mcp` to sign in to Apify.
+- **Codex:** `codex mcp add global-job-search-api --url "https://mcp.apify.com?tools=anshumanatrey/global-job-search-api"`, then `codex mcp login global-job-search-api`.
+- **Any other MCP client:** `https://mcp.apify.com?tools=anshumanatrey/global-job-search-api`, signed in with Apify or an `Authorization: Bearer <APIFY_TOKEN>` header.
 
 ## What does it do?
 
@@ -173,11 +173,11 @@ Its jobs may be older than the newest jobs of the other boards (raise Number of 
 
 ### Does it work on Apify's free plan?
 
-Job Boards Search works on Apify's free plan, which pays $0.004 a job and $0.01 a board. The free $5 monthly credit pays for about 8 runs of 100 jobs on all 18 boards, or 20 runs of 50 jobs on 5 boards.
+Global Job Search works on Apify's free plan, which pays $0.004 a job and $0.01 a board. The free $5 monthly credit pays for about 8 runs of 100 jobs on all 18 boards, or 20 runs of 50 jobs on 5 boards.
 
 ### How often should I run it?
 
-Running Job Boards Search once a day keeps a job feed fresh: set Posted in the last (`postedWithin`) to 24 hours, schedule it under Schedules in Apify Console, and match rows on `jobUrl` to skip jobs you already have.
+Running Global Job Search once a day keeps a job feed fresh: set Posted in the last (`postedWithin`) to 24 hours, schedule it under Schedules in Apify Console, and match rows on `jobUrl` to skip jobs you already have.
 
 ### How do I check a list of job links?
 
@@ -185,12 +185,12 @@ Paste them in Job links to check (`jobUrls`), one per line, from any of the 18 b
 
 ### How do I call it from the API, Python, JavaScript, n8n or an AI agent?
 
-Job Boards Search runs from the Apify API, Python, JavaScript, n8n, Make or an AI agent over MCP. Each way uses your Apify token (Apify Console, Settings, API & Integrations) and takes the input as JSON keyed by the field names, such as `searchTerms` and `platforms`.
+Global Job Search runs from the Apify API, Python, JavaScript, n8n, Make or an AI agent over MCP. Each way uses your Apify token (Apify Console, Settings, API & Integrations) and takes the input as JSON keyed by the field names, such as `searchTerms` and `platforms`.
 
 **API.** One call runs the actor and returns its rows (Apify waits up to 300 seconds):
 
 ```bash
-curl -X POST "https://api.apify.com/v2/acts/anshumanatrey~job-boards-search/run-sync-get-dataset-items" \
+curl -X POST "https://api.apify.com/v2/acts/anshumanatrey~global-job-search-api/run-sync-get-dataset-items" \
   -H "Authorization: Bearer <YOUR_APIFY_TOKEN>" \
   -H "Content-Type: application/json" \
   -d '{"searchTerms": ["data analyst"], "location": ["London"], "platforms": ["hiringcafe", "greenhouse", "ashby"]}'
@@ -202,7 +202,7 @@ curl -X POST "https://api.apify.com/v2/acts/anshumanatrey~job-boards-search/run-
 from apify_client import ApifyClient
 
 client = ApifyClient("<YOUR_APIFY_TOKEN>")
-run = client.actor("anshumanatrey/job-boards-search").call(run_input={"searchTerms": ["data analyst"]})
+run = client.actor("anshumanatrey/global-job-search-api").call(run_input={"searchTerms": ["data analyst"]})
 for row in client.dataset(run.default_dataset_id).iterate_items():  # apify-client 3+; on 2.x use run["defaultDatasetId"]
     print(row["platform"], row["title"], row["company"], row["location"], row["applyUrl"])
 ```
@@ -213,18 +213,18 @@ for row in client.dataset(run.default_dataset_id).iterate_items():  # apify-clie
 import { ApifyClient } from 'apify-client';
 
 const client = new ApifyClient({ token: '<YOUR_APIFY_TOKEN>' });
-const run = await client.actor('anshumanatrey/job-boards-search').call({ searchTerms: ['data analyst'] });
+const run = await client.actor('anshumanatrey/global-job-search-api').call({ searchTerms: ['data analyst'] });
 const { items } = await client.dataset(run.defaultDatasetId).listItems();
 for (const row of items) console.log(row.platform, row.title, row.company, row.location, row.applyUrl);
 ```
 
 **n8n and Make.** In n8n, add the Apify node, pick Run an Actor and get dataset, choose this actor and paste the input JSON. In Make, the Apify app's Run an Actor and Get Dataset Items modules do the same.
 
-**AI agents (MCP).** Add `https://mcp.apify.com?tools=anshumanatrey/job-boards-search` to your MCP client and sign in with Apify, or send `Authorization: Bearer <YOUR_APIFY_TOKEN>`. The agent gets one tool that searches all 18 boards and sees every input field by its JSON key.
+**AI agents (MCP).** Add `https://mcp.apify.com?tools=anshumanatrey/global-job-search-api` to your MCP client and sign in with Apify, or send `Authorization: Bearer <YOUR_APIFY_TOKEN>`. The agent gets one tool that searches all 18 boards and sees every input field by its JSON key.
 
 ### Is it legal to use?
 
-Job Boards Search reads public job postings, the pages any visitor sees without logging in. It is not affiliated with any of the boards it reads. You are responsible for how you use the data, including each board's terms and the privacy laws that apply to you.
+Global Job Search reads public job postings, the pages any visitor sees without logging in. It is not affiliated with any of the boards it reads. You are responsible for how you use the data, including each board's terms and the privacy laws that apply to you.
 
 ## Limitations
 
@@ -268,8 +268,8 @@ One board at a time, for less:
 
 ## Documentation
 
-- Apify Store: https://apify.com/anshumanatrey/job-boards-search
-- GitHub repo: https://github.com/AnshumanAtrey/job-boards-search (MIT license, see [LICENSE](LICENSE))
+- Apify Store: https://apify.com/anshumanatrey/global-job-search-api
+- GitHub repo: https://github.com/AnshumanAtrey/global-job-search-api (MIT license, see [LICENSE](LICENSE))
 - The engine behind it: https://github.com/AnshumanAtrey/ats-jobs-engine
 
 ## Last updated

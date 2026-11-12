@@ -1,5 +1,5 @@
 {
-    "title": "Job Boards Search",
+    "title": "Global Job Search",
     "description": "Type a job title and press Start: you get the newest matching jobs from 18 job boards at once, each job once. Pick the boards in Job boards, or clear it to search all 18. Every other field is optional.",
     "type": "object",
     "schemaVersion": 1,

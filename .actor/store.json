@@ -1,8 +1,8 @@
 {
  "$comment": "Listing metadata, applied by scripts/store-metadata.mjs in CI (manager/rules/SEO.md). actorId pins the actor the first deploy created, so CI updates it by ID and a rename of name in actor.json keeps the same actor.",
  "actorId": "GE4pjOZOMfODEYdGd",
- "seoTitle": "Job Search API for All 18 Job Boards and ATS Sites",
- "seoDescription": "Search multiple job boards and career sites at once: Greenhouse, Lever, Workday, Ashby, Hiring Cafe, YC, Wellfound and 11 more. Newest first, each once.",
+ "seoTitle": "Global Job Search API for All Job Boards, Remote",
+ "seoDescription": "Universal job search across multiple job boards and career sites: Greenhouse, Lever, Workday, Ashby, Hiring Cafe, YC and 12 more. Remote jobs, worldwide.",
  "actorPermissionLevel": "LIMITED_PERMISSIONS",
  "isPublic": true,
  "defaultRunOptions": {
