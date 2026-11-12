@@ -2,7 +2,7 @@
  "$comment": "Example tasks published on the Store by scripts/publish-tasks.mjs after every deploy (CI only), each a search people type with its own Google-indexed page (manager/rules/SEO.md section 18). Task names are unique per account, so each ends in all-job-boards. options follow defaultRunOptions in store.json.",
  "options": {
   "build": "latest",
-  "memoryMbytes": 4096,
+  "memoryMbytes": 8192,
   "timeoutSecs": 900
  },
  "tasks": [

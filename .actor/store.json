@@ -7,10 +7,10 @@
  "isPublic": false,
  "defaultRunOptions": {
   "build": "latest",
-  "memoryMbytes": 4096,
+  "memoryMbytes": 8192,
   "timeoutSecs": 900
  },
- "defaultRunOptions$comment": "Provisional 4 GB (one CPU core: the 18 boards are read at once in one process, 128 s of CPU and 0.75 GB peak on a laptop for data analyst in London, 2026-11-13); to be measured on Apify at 2 and 4 GB before publishing. timeoutSecs 900: secondsPerBoard (240) caps the search, the rest is details and saving.",
+ "defaultRunOptions$comment": "8 GB, measured on Apify 2026-11-13 (build 1.0.2, engine 0.7.1, unpriced): all 18 boards, data analyst in London, read every board in 226 s at 8 GB, $0.108 (run o2nAAuWdvv2J3thKw), and at 4 GB cut five boards at the 240 s cap, $0.061 (run 5UinVyNmcwAwdzQzJ): Apify gives one CPU core per 4 GB, and 18 boards need two. The example input (5 boards) took 134 s at 4 GB, $0.037 (run vBjae5QuQQbltOdoH). maxMemoryMbytes 16384 lets a run take four cores. timeoutSecs 900: secondsPerBoard (240) caps the search, the rest is details and saving.",
  "exampleRunInput": {
   "searchTerms": [
    "software engineer"
