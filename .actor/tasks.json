@@ -1,0 +1,68 @@
+{
+ "$comment": "Example tasks published on the Store by scripts/publish-tasks.mjs after every deploy (CI only), each a search people type with its own Google-indexed page (manager/rules/SEO.md section 18). Task names are unique per account, so each ends in all-job-boards. options follow defaultRunOptions in store.json.",
+ "options": {
+  "build": "latest",
+  "memoryMbytes": 4096,
+  "timeoutSecs": 900
+ },
+ "tasks": [
+  {
+   "name": "remote-software-engineer-jobs-all-job-boards",
+   "title": "Find remote software engineer jobs on 18 job boards at once",
+   "description": "Search Hiring Cafe, Greenhouse, Lever, Workday, Ashby, Y Combinator, Wellfound and 11 more job boards for remote software engineer jobs posted in the last 7 days, newest first, each job once, with the company, pay when shown, the board it came from and the apply link.",
+   "seoTitle": "Remote Software Engineer Jobs on 18 Job Boards",
+   "seoDescription": "The newest remote software engineer jobs from Greenhouse, Lever, Workday, Ashby, Hiring Cafe, YC and 12 more boards, each listed once.",
+   "input": {
+    "searchTerms": [
+     "software engineer"
+    ],
+    "workType": [
+     "remote"
+    ],
+    "postedWithin": "7 days",
+    "maxJobs": 100,
+    "platforms": [],
+    "location": [],
+    "includeDetails": false
+   },
+   "inputSchemaFields": [
+    "searchTerms",
+    "platforms",
+    "location",
+    "workType",
+    "postedWithin",
+    "maxJobs"
+   ],
+   "datasetView": "jobs"
+  },
+  {
+   "name": "data-analyst-jobs-london-all-job-boards",
+   "title": "Find data analyst jobs in London on every job board",
+   "description": "Search 18 job boards at once for data analyst jobs in London posted in the last 30 days: company career sites on Greenhouse, Lever, Workday and Ashby, plus Hiring Cafe, eFinancialCareers, Welcome to the Jungle and more, newest first, each job once.",
+   "seoTitle": "Data Analyst Jobs in London from 18 Job Boards",
+   "seoDescription": "The newest data analyst jobs in London from Greenhouse, Lever, Workday, Ashby, Hiring Cafe, eFinancialCareers and 12 more boards.",
+   "input": {
+    "searchTerms": [
+     "data analyst"
+    ],
+    "location": [
+     "London"
+    ],
+    "postedWithin": "30 days",
+    "maxJobs": 100,
+    "platforms": [],
+    "workType": [],
+    "includeDetails": false
+   },
+   "inputSchemaFields": [
+    "searchTerms",
+    "platforms",
+    "location",
+    "workType",
+    "postedWithin",
+    "maxJobs"
+   ],
+   "datasetView": "jobs"
+  }
+ ]
+}

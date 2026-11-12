@@ -1,0 +1,150 @@
+# Job Search API - Greenhouse, Lever, Workday, Ashby & 14 More
+
+> Job search API for 18 job boards in one run: Hiring Cafe, Greenhouse, Lever, Workday, Ashby, SmartRecruiters, Workable, Y Combinator and Wellfound, newest first, each job once.
+
+## Summary
+
+Job Boards Search is an Apify actor that searches 18 job boards live and in parallel in one run, and returns one row per job, newest first across all of them, each job once: title, company, places, remote or office, job type, published pay, posting date, the board it came from (platform) and the job and apply links; with full details, the description and pay as numbers. The boards: job boards that index jobs themselves (Hiring Cafe, Y Combinator's Work at a Startup, Wellfound, Welcome to the Jungle with Otta, eFinancialCareers, Naukri, foundit, Instahyre, Hirist, Cutshort) and company career sites on eight applicant tracking systems (Greenhouse 8,357 job boards, Lever 2,396, Workday 2,207, Ashby 3,814, SmartRecruiters 2,917, Workable 2,196, Cornerstone 1,110, Deel 161). A job listed on two boards is saved once. No login and no API key.
+
+Store: https://apify.com/anshumanatrey/job-boards-search
+Source: https://github.com/AnshumanAtrey/job-boards-search
+
+## Use it from an AI assistant
+
+- Claude (claude.ai and the desktop app): https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Job%20Boards%20Search&connectorUrl=https%3A%2F%2Fmcp.apify.com%3Ftools%3Danshumanatrey%2Fjob-boards-search (click Continue, sign in to Apify, Allow).
+- Claude Code: claude mcp add --transport http job-boards-search "https://mcp.apify.com?tools=anshumanatrey/job-boards-search", then /mcp to sign in to Apify.
+- Codex: codex mcp add job-boards-search --url "https://mcp.apify.com?tools=anshumanatrey/job-boards-search", then codex mcp login job-boards-search.
+- Any other MCP client: https://mcp.apify.com?tools=anshumanatrey/job-boards-search, signed in with Apify or Authorization: Bearer <APIFY_TOKEN>.
+
+## Key features
+
+- 18 boards in one run, read at the same time, so a run takes about as long as its slowest board; Time per board (secondsPerBoard, 240 s) caps it.
+- The newest jobs of all boards, newest first, up to maxJobs in all, with the board of each in platform.
+- Each job once: the same job link, the same company and title in the same city, or the same company and title posted at the same second.
+- The same filters on every board: titles (every word of a line in the title), places (cities, states, countries, regions, Worldwide), remote or office, job type, posting period, years of experience, words to leave out, companies.
+- A pasted board link searches that board only; job links of any of the 18 boards are checked by their own board: open, closed or not found.
+- The OUTPUT record has one entry per board: matches, jobs saved, seconds, jobs left out as another board's, errors.
+
+## Input keys
+
+- Job titles to find (searchTerms): one per line; a job matches when its title has every word; a board link searches that board only.
+- Job boards (platforms): hiringcafe, greenhouse, lever, workday, ashby, smartrecruiters, workable, cornerstone, deel, ycombinator, wellfound, welcometothejungle, efinancialcareers, naukri, foundit, instahyre, hirist, cutshort; empty for all 18; names work too (Hiring Cafe, YC, Otta).
+- Where the job is (location): cities, states, countries or regions; Worldwide; Remote alone asks for remote jobs.
+- Remote or onsite (workType): remote, hybrid or onsite.
+- Posted in the last (postedWithin): 24 hours, 3, 7, 14 or 30 days (the default), any time, or your own period.
+- Number of jobs (maxJobs): jobs in all, newest first across every board; 100 by default; 0 for every match.
+- Full details (includeDetails): the description as text and HTML, pay as numbers, the address.
+- Leave out words (excludeTerms), Job type (employmentType), Match descriptions (searchDescriptions).
+- Experience (experienceYears): 3, 2-5, 5+ or fresher; only boards that state years can match then (Hiring Cafe, Y Combinator, Wellfound, Welcome to the Jungle, the India boards).
+- Only these companies (companies): names or board links; a board where none is found sits the run out.
+- Job links to check (jobUrls): job links of any of the 18 boards, checked instead of searching.
+- Time per board (secondsPerBoard): seconds each board may search; 240 by default; 0 for no cap of its own.
+
+## Pricing
+
+Pay per event, platform usage included, no monthly fee:
+- Job: $0.003 ($3.00 per 1,000) on FREE and BRONZE, $0.0027 on SILVER, $0.0024 on GOLD and above; also one checked link that is closed or not found.
+- Job with details: $0.004 on FREE and BRONZE, $0.0036 on SILVER, $0.0032 on GOLD and above.
+- Board searched: $0.005 for each board a search reads, when the run starts (18 when every board is searched); checking job links charges none.
+- Examples: 100 jobs from all 18 boards $0.39; 50 jobs from 5 boards $0.175; 100 jobs from all 18 boards with full details $0.49. Apify's free $5 monthly credit covers about 12 runs of 100 jobs on all 18 boards.
+
+## Speed
+
+Minutes, because the boards are read at the same time. Laptop, 2026-11-13: software engineer on 16 boards took 255 s in one run against 938 s one board at a time; data analyst in London on all 18 boards took 215 s (Greenhouse reads all of its 8,357 job boards); peak memory 0.75 GB.
+
+## How to call it
+
+- Apify API: POST https://api.apify.com/v2/acts/anshumanatrey~job-boards-search/run-sync-get-dataset-items with a JSON body such as {"searchTerms": ["data analyst"], "platforms": ["hiringcafe", "greenhouse"]}.
+- Python and JavaScript: apify-client, actor "anshumanatrey/job-boards-search".
+- n8n and Make: the Apify node or app, Run an Actor and get its dataset.
+- MCP: https://mcp.apify.com?tools=anshumanatrey/job-boards-search
+
+## When to use
+
+- One search for a title and a place across every major job board and company career site, newest first.
+- A daily job feed or alert in one schema, for a job board, a recruiter or a job seeker.
+- An AI agent that needs one job search tool instead of one per board.
+
+## When NOT to use
+
+- One board only: its own actor costs far less (Hiring Cafe Jobs Scraper charges $0.000062 a job).
+- LinkedIn, Indeed or Glassdoor jobs: not read here.
+- Applicant tracking systems beyond these eight (iCIMS, Taleo, SuccessFactors): use a database actor that lists them.
+
+## Sample input
+
+```json
+{
+  "searchTerms": ["data analyst"],
+  "location": ["London"],
+  "platforms": ["hiringcafe", "greenhouse", "lever", "ashby", "efinancialcareers"],
+  "postedWithin": "7 days",
+  "maxJobs": 50
+}
+```
+
+## Sample output (one record)
+
+```json
+{
+  "title": "EMEA | Senior Data Business Analyst / Product Owner (Contractor)",
+  "company": "Infinite Lambda",
+  "location": "London",
+  "otherLocations": ["Romania", "Sofia I Bulgaria", "Hungary", "Spain", "Slovakia", "Portugal"],
+  "workType": "remote",
+  "employmentType": "full-time",
+  "department": "Customer Success",
+  "team": "Customer Success",
+  "salary": null,
+  "postedAt": "2026-11-11T10:52:26.238+00:00",
+  "jobUrl": "https://jobs.ashbyhq.com/Infinite%20Lambda/4bdf2b62-422f-4036-8645-cd1ffeef0a27",
+  "applyUrl": "https://jobs.ashbyhq.com/Infinite%20Lambda/4bdf2b62-422f-4036-8645-cd1ffeef0a27/application",
+  "status": "open",
+  "platform": "ashby",
+  "companySlug": "Infinite Lambda",
+  "companyWebsite": "https://infinitelambda.com",
+  "jobId": "4bdf2b62-422f-4036-8645-cd1ffeef0a27",
+  "checkedAt": "2026-11-12T20:12:25+00:00"
+}
+```
+
+## Differentiators vs alternatives
+
+- Job boards and company career sites in one run, India's job boards included; the multi-board actors with 80+ users on 2026-11-13 read either applicant tracking systems or general job boards.
+- Read live at run time, not from an index; each job once across boards; titles hold your words.
+- Cheaper alternatives for narrower needs: bovi ($0.0015), yugenox ($0.002) and jtpalms ($0.003) for Greenhouse, Lever and Ashby only.
+
+## Sibling actors
+
+- Hiring Cafe Jobs Scraper: https://apify.com/anshumanatrey/hiringcafe-jobs-search
+- Greenhouse Jobs Scraper: https://apify.com/anshumanatrey/greenhouse-jobs-search
+- Lever Jobs Scraper: https://apify.com/anshumanatrey/lever-jobs-search
+- Workday Jobs Scraper: https://apify.com/anshumanatrey/workday-job-search
+- Ashby Jobs Scraper: https://apify.com/anshumanatrey/ashby-jobs-search
+- SmartRecruiters Jobs Scraper: https://apify.com/anshumanatrey/smartrecruiters-jobs-search
+- Workable Jobs Scraper: https://apify.com/anshumanatrey/workable-job-search
+- Cornerstone Jobs Scraper: https://apify.com/anshumanatrey/cornerstone-jobs-search
+- Deel Jobs Scraper: https://apify.com/anshumanatrey/deel-jobs-search
+- Y Combinator Jobs Scraper: https://apify.com/anshumanatrey/ycombinator-jobs-search
+- Wellfound Jobs Scraper: https://apify.com/anshumanatrey/wellfound-jobs-search
+- Welcome to the Jungle Jobs Scraper: https://apify.com/anshumanatrey/welcome-to-the-jungle-jobs-search
+- eFinancialCareers Jobs Scraper: https://apify.com/anshumanatrey/efinancialcareers-jobs-search
+- Naukri Jobs Scraper: https://apify.com/anshumanatrey/naukri-jobs-search
+- Foundit Jobs Scraper: https://apify.com/anshumanatrey/foundit-jobs-search
+- Instahyre Jobs Scraper: https://apify.com/anshumanatrey/instahyre-jobs-search
+- Hirist Jobs Scraper: https://apify.com/anshumanatrey/hirist-jobs-search
+- Cutshort Jobs Scraper: https://apify.com/anshumanatrey/cutshort-jobs-search
+
+## Documentation
+
+- Apify Store: https://apify.com/anshumanatrey/job-boards-search
+- GitHub: https://github.com/AnshumanAtrey/job-boards-search (MIT)
+- Engine: https://github.com/AnshumanAtrey/ats-jobs-engine
+
+## Maintainer
+
+Anshuman Atrey (https://github.com/AnshumanAtrey), LinkedIn https://linkedin.com/in/anshumanatrey, atrey.dev.
+
+## Last updated
+
+2026-11-13 (version 1.0)

@@ -1,0 +1,1306 @@
+{
+    "actorSpecification": 1,
+    "name": "job-boards-search",
+    "title": "Job Search API - Greenhouse, Lever, Workday, Ashby & 14 More",
+    "description": "Job search API for 18 job boards in one run: Hiring Cafe, Greenhouse, Lever, Workday, Ashby, SmartRecruiters, Workable, Y Combinator and Wellfound, newest first, each job once. Plus Naukri, foundit, Instahyre, Hirist, Cutshort, eFinancialCareers, Welcome to the Jungle, Cornerstone and Deel.",
+    "version": "1.0",
+    "buildTag": "latest",
+    "categories": [
+        "JOBS",
+        "LEAD_GENERATION",
+        "AUTOMATION"
+    ],
+    "input": "./INPUT_SCHEMA.json",
+    "output": "./output_schema.json",
+    "dockerfile": "../Dockerfile",
+    "readme": "../README.md",
+    "minMemoryMbytes": 1024,
+    "maxMemoryMbytes": 8192,
+    "storages": {
+        "dataset": {
+            "actorSpecification": 1,
+            "title": "Jobs from 18 job boards",
+            "description": "One row per job, newest first across every board searched, each job once: title, company, places, work type, job type, pay, posting date, links and the board it came from (platform); with details on, also the description and pay as numbers. Each board adds its own fields, named in each field. The run summary is the OUTPUT record, not a row.",
+            "fields": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Job title (title)",
+                        "description": "The job title as the employer wrote it.",
+                        "example": "Senior Data Analyst"
+                    },
+                    "company": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Company name (company)",
+                        "description": "The company that is hiring.",
+                        "example": "Ramp"
+                    },
+                    "location": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Main location (location)",
+                        "description": "The first place the job names, as the board shows it.",
+                        "example": "New York, NY"
+                    },
+                    "otherLocations": {
+                        "type": [
+                            "array",
+                            "null"
+                        ],
+                        "title": "Other locations (otherLocations)",
+                        "description": "Every other place the job names.",
+                        "example": [
+                            "Remote (Canada)"
+                        ]
+                    },
+                    "workType": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Remote or onsite (workType)",
+                        "description": "remote, hybrid or onsite, as the job states it; empty when it says nothing.",
+                        "example": "hybrid"
+                    },
+                    "employmentType": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Job type (employmentType)",
+                        "description": "full-time, part-time, contract, intern or temporary, when the job states it.",
+                        "example": "full-time"
+                    },
+                    "department": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Hiring department (department)",
+                        "description": "The department or function the job sits in, when the board has one.",
+                        "example": "Engineering"
+                    },
+                    "team": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Hiring team (team)",
+                        "description": "The team, on boards that name one (Lever, Ashby, Deel).",
+                        "example": "Backend"
+                    },
+                    "salary": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Pay summary (salary)",
+                        "description": "The published pay as text, such as a range and its period.",
+                        "example": "$120K - $150K a year"
+                    },
+                    "salaryMin": {
+                        "type": [
+                            "number",
+                            "null"
+                        ],
+                        "title": "Lowest pay (salaryMin)",
+                        "description": "The lowest published pay as a number, with full details, where the board gives one.",
+                        "example": 120000
+                    },
+                    "salaryMax": {
+                        "type": [
+                            "number",
+                            "null"
+                        ],
+                        "title": "Highest pay (salaryMax)",
+                        "description": "The highest published pay as a number, with full details, where the board gives one.",
+                        "example": 150000
+                    },
+                    "salaryCurrency": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Pay currency (salaryCurrency)",
+                        "description": "The currency of the pay numbers, such as USD or INR.",
+                        "example": "USD"
+                    },
+                    "salaryPeriod": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Pay period (salaryPeriod)",
+                        "description": "year, month, week, day or hour: what the pay numbers are per.",
+                        "example": "year"
+                    },
+                    "offersEquity": {
+                        "type": [
+                            "boolean",
+                            "null"
+                        ],
+                        "title": "Offers equity? (offersEquity)",
+                        "description": "True when the job offers equity, on the boards that say (Ashby, YC, Wellfound, Cutshort).",
+                        "example": true
+                    },
+                    "postedAt": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Posted on (postedAt)",
+                        "description": "When the job was posted, ISO 8601. Jobs come newest first across every board.",
+                        "example": "2026-11-12T18:44:48Z"
+                    },
+                    "expiresAt": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Closes on (expiresAt)",
+                        "description": "The application deadline, on boards that publish one.",
+                        "example": "2026-12-31"
+                    },
+                    "jobUrl": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Job link (jobUrl)",
+                        "description": "The link to the job on its board.",
+                        "example": "https://jobs.ashbyhq.com/ramp/34413f8d-26bf-4bbc-8ade-eb309a0e2245"
+                    },
+                    "applyUrl": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Apply link (applyUrl)",
+                        "description": "The link to apply, often the employer's own career site.",
+                        "example": "https://jobs.ashbyhq.com/ramp/34413f8d-26bf-4bbc-8ade-eb309a0e2245/application"
+                    },
+                    "status": {
+                        "type": "string",
+                        "title": "Still open? (status)",
+                        "description": "open for a job found by a search; for a checked link open, closed or notFound.",
+                        "example": "open"
+                    },
+                    "platform": {
+                        "type": "string",
+                        "title": "Job board (platform)",
+                        "description": "The job board the row came from: hiringcafe, greenhouse, lever, workday, ashby, smartrecruiters, workable, cornerstone, deel, ycombinator, wellfound, welcometothejungle, efinancialcareers, naukri, foundit, instahyre, hirist or cutshort.",
+                        "example": "greenhouse"
+                    },
+                    "companySlug": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Company board name (companySlug)",
+                        "description": "The company's name in its board address, such as stripe in job-boards.greenhouse.io/stripe.",
+                        "example": "ramp"
+                    },
+                    "companyWebsite": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Company website (companyWebsite)",
+                        "description": "The company's own website, when the board names it.",
+                        "example": "https://ramp.com"
+                    },
+                    "jobId": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Job ID (jobId)",
+                        "description": "The job's ID on its board.",
+                        "example": "34413f8d-26bf-4bbc-8ade-eb309a0e2245"
+                    },
+                    "checkedAt": {
+                        "type": "string",
+                        "title": "Checked at (checkedAt)",
+                        "description": "When this run read the job, ISO 8601.",
+                        "example": "2026-11-13T10:00:00+00:00"
+                    },
+                    "description": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Job description (description)",
+                        "description": "The full description as plain text, with full details (includeDetails).",
+                        "example": "We build finance automation with Python."
+                    },
+                    "descriptionHtml": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Description as HTML (descriptionHtml)",
+                        "description": "The full description as HTML, with full details, where the board gives it.",
+                        "example": "<p>We build finance automation with Python.</p>"
+                    },
+                    "reference": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Company's reference (reference)",
+                        "description": "The company's own reference number for the job, where the board shows it.",
+                        "example": "JR2027714"
+                    },
+                    "city": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "City name (city)",
+                        "description": "The city of the main location, with full details.",
+                        "example": "New York City"
+                    },
+                    "region": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "State or region (region)",
+                        "description": "The state or region of the main location, with full details.",
+                        "example": "NY"
+                    },
+                    "country": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Country name (country)",
+                        "description": "The country of the main location, with full details.",
+                        "example": "United States"
+                    },
+                    "countryCode": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Country code (countryCode)",
+                        "description": "The two-letter code of that country, with full details.",
+                        "example": "US"
+                    },
+                    "experienceMin": {
+                        "type": [
+                            "number",
+                            "null"
+                        ],
+                        "title": "Least years (experienceMin)",
+                        "description": "The fewest years of experience the job asks for, on the boards that state it.",
+                        "example": 2
+                    },
+                    "experienceMax": {
+                        "type": [
+                            "number",
+                            "null"
+                        ],
+                        "title": "Most years (experienceMax)",
+                        "description": "The most years of experience the job asks for, on the boards that state it.",
+                        "example": 5
+                    },
+                    "skills": {
+                        "type": [
+                            "array",
+                            "null"
+                        ],
+                        "title": "Skills asked (skills)",
+                        "description": "The skill tags the board gives the job.",
+                        "example": [
+                            "Python",
+                            "SQL"
+                        ]
+                    },
+                    "companySize": {
+                        "type": [
+                            "string",
+                            "integer",
+                            "null"
+                        ],
+                        "title": "Employees (companySize)",
+                        "description": "Only from Hiring Cafe, Wellfound, Welcome to the Jungle, Instahyre and Cutshort: The company's headcount, as HiringCafe enriched it.",
+                        "example": 7850
+                    },
+                    "companyFounded": {
+                        "type": [
+                            "number",
+                            "null"
+                        ],
+                        "title": "Year founded (companyFounded)",
+                        "description": "Only from Hiring Cafe, Welcome to the Jungle, Instahyre and Cutshort: The year the company was founded.",
+                        "example": 2015
+                    },
+                    "industry": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Company industry (industry)",
+                        "description": "Only from Y Combinator, Welcome to the Jungle, Naukri and foundit: The company's industries in YC's directory, such as B2B, Fintech, Healthcare.",
+                        "example": "B2B"
+                    },
+                    "companyLogo": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Startup logo (companyLogo)",
+                        "description": "Only from Wellfound, Welcome to the Jungle, Naukri and Instahyre: The link to the startup's logo image on Wellfound.",
+                        "example": "https://photos.wellfound.com/startups/i/690214-4a192ccd8bbaf74a994a0b4915050c3c-medium_jpg.jpg?buster=1600000000"
+                    },
+                    "companyStage": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Company stage (companyStage)",
+                        "description": "Only from Y Combinator, Wellfound and Cutshort: The company's stage in YC's directory: early, growth or public.",
+                        "example": "early"
+                    },
+                    "remotePolicy": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Remote policy (remotePolicy)",
+                        "description": "Only from Wellfound, Welcome to the Jungle and Cutshort: Wellfound's remote setting in its own words: Remote only, Onsite or remote, In office - WFH flexibility, or In office. Empty when the startup set none.",
+                        "example": "Remote only"
+                    },
+                    "role": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Role on Wellfound (role)",
+                        "description": "Only from Wellfound, Welcome to the Jungle and Naukri: The role Wellfound files the job under, such as Software Engineer or Data Scientist.",
+                        "example": "Data Scientist"
+                    },
+                    "summary": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Short summary (summary)",
+                        "description": "Only from Welcome to the Jungle, eFinancialCareers and Naukri: Welcome to the Jungle's few-sentence summary of the job, on every job.",
+                        "example": "Rejoins notre équipe en tant que Data Analyst Supply Chain. Tu seras responsable de cadrer les besoins fonctionnels, d'extraire et d'exploiter les données, de construire des outils de pilotage, de..."
+                    },
+                    "companyRating": {
+                        "type": [
+                            "number",
+                            "null"
+                        ],
+                        "title": "Company rating (companyRating)",
+                        "description": "Only from Naukri, Instahyre and Hirist: The employer's rating out of 5 on AmbitionBox, Naukri's company review site.",
+                        "example": 3.4
+                    },
+                    "applicants": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ],
+                        "title": "Applicants so far (applicants)",
+                        "description": "Only from Naukri, foundit and Hirist: How many people had applied on Naukri, with details on.",
+                        "example": 288
+                    },
+                    "seniority": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Job level (seniority)",
+                        "description": "Only from Hiring Cafe and eFinancialCareers: HiringCafe's seniority rating of the job: No Prior Experience Required, Entry Level, Mid Level or Senior Level.",
+                        "example": "Senior Level"
+                    },
+                    "roleType": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Manages people? (roleType)",
+                        "description": "Only from Hiring Cafe and Y Combinator: Individual Contributor or People Manager, as HiringCafe reads the ad.",
+                        "example": "Individual Contributor"
+                    },
+                    "visaSponsorship": {
+                        "type": [
+                            "boolean",
+                            "null"
+                        ],
+                        "title": "Visa sponsor? (visaSponsorship)",
+                        "description": "Only from Hiring Cafe and Wellfound: true when the ad says the employer sponsors work visas, as HiringCafe reads it.",
+                        "example": false
+                    },
+                    "companyType": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Company type (companyType)",
+                        "description": "Only from Hiring Cafe and Cutshort: Public, Private, Government, Non-Profit or another organization type.",
+                        "example": "Private"
+                    },
+                    "companyFunding": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Latest funding (companyFunding)",
+                        "description": "Only from Hiring Cafe and Wellfound: The company's latest funding round or event: Series B, IPO, Private Equity and others.",
+                        "example": "Series F"
+                    },
+                    "equityMin": {
+                        "type": [
+                            "number",
+                            "null"
+                        ],
+                        "title": "Equity from, % (equityMin)",
+                        "description": "Only from Y Combinator and Wellfound: The low end of the equity range, in percent.",
+                        "example": 0.07
+                    },
+                    "equityMax": {
+                        "type": [
+                            "number",
+                            "null"
+                        ],
+                        "title": "Equity up to, % (equityMax)",
+                        "description": "Only from Y Combinator and Wellfound: The high end of the equity range, in percent.",
+                        "example": 0.3
+                    },
+                    "companyTagline": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Startup tagline (companyTagline)",
+                        "description": "Only from Wellfound and Instahyre: What the startup does, in its own one line.",
+                        "example": "Personalized and highly-relevant search and product discovery"
+                    },
+                    "contractType": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Site's contract (contractType)",
+                        "description": "Only from Welcome to the Jungle and eFinancialCareers: The contract as Welcome to the Jungle states it: full_time, part_time, temporary, internship, apprenticeship, freelance, vie, graduate_program, volunteer or other.",
+                        "example": "full_time"
+                    },
+                    "education": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Education asked (education)",
+                        "description": "Only from Welcome to the Jungle and Naukri: The education level the job asks for, in France's terms: Bac+5 (master's), Bac+3 (bachelor's), Bac+2 and so on; on 20% of jobs.",
+                        "example": "Bac+5 (master's)"
+                    },
+                    "roleCategory": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Role group (roleCategory)",
+                        "description": "Only from Welcome to the Jungle and Naukri: The site's group of the role, such as Tech & Engineering or Sales & Customer Service.",
+                        "example": "Tech & Engineering"
+                    },
+                    "agency": {
+                        "type": [
+                            "string",
+                            "boolean",
+                            "null"
+                        ],
+                        "title": "Posted by an agency? (agency)",
+                        "description": "Only from eFinancialCareers and Cutshort: true when the job was posted by a company eFinancialCareers files under HR & Recruitment (a recruitment agency or job platform), false when it files the poster under another industry, empty when the poster has no profile there.",
+                        "example": false
+                    },
+                    "postedBy": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Posted by (postedBy)",
+                        "description": "Only from eFinancialCareers and Naukri: The name on the company profile the job's page shows: the employer, or the agency or platform that posted it. Empty with no profile.",
+                        "example": "Citi Hong Kong"
+                    },
+                    "refreshedAt": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Moved to the top (refreshedAt)",
+                        "description": "Only from eFinancialCareers and foundit: When eFinancialCareers last listed the job at the top of its search, in UTC. Paid jobs move back to the top every 6 days, so this can be weeks after postedAt.",
+                        "example": "2026-11-09T09:09:32Z"
+                    },
+                    "companyReviews": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ],
+                        "title": "Company reviews (companyReviews)",
+                        "description": "Only from Naukri and Hirist: How many employee reviews that rating rests on.",
+                        "example": 51522
+                    },
+                    "employmentTypes": {
+                        "type": [
+                            "array",
+                            "null"
+                        ],
+                        "title": "All job types (employmentTypes)",
+                        "description": "Only from Hiring Cafe: Every job type the ad states.",
+                        "example": [
+                            "full-time",
+                            "intern"
+                        ],
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "requirementsSummary": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Requirements (requirementsSummary)",
+                        "description": "Only from Hiring Cafe: HiringCafe's one-line summary of what the job asks for.",
+                        "example": "5+ years in data analytics; strong SQL and Python; dashboarding with Tableau or Power BI."
+                    },
+                    "ats": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Hiring system (ats)",
+                        "description": "Only from Hiring Cafe: The applicant tracking system or career site the job came from, in HiringCafe's words: ashby, grnhse (Greenhouse), lever, workday, icims2, taleo_careersection, smartrecruiters and over 40 more.",
+                        "example": "ashby"
+                    },
+                    "atsJobId": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Job ID in that system (atsJobId)",
+                        "description": "Only from Hiring Cafe: The job's own ID in that hiring system, for matching it against other feeds. Empty when the system shows none.",
+                        "example": "8ddb799f-f0c7-4df8-9665-5016a1f39da3"
+                    },
+                    "companyIndustries": {
+                        "type": [
+                            "array",
+                            "null"
+                        ],
+                        "title": "Industries (companyIndustries)",
+                        "description": "Only from Hiring Cafe: The company's industries, as HiringCafe enriched it.",
+                        "example": [
+                            "Software & SaaS",
+                            "Scientific Research & Development"
+                        ],
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "companyHeadquarters": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Company HQ (companyHeadquarters)",
+                        "description": "Only from Hiring Cafe: The country of the company's headquarters.",
+                        "example": "United States"
+                    },
+                    "batch": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "YC batch (batch)",
+                        "description": "Only from Y Combinator: The company's YC batch: W for Winter, S for Summer, F for Fall, P for Spring, and the year, such as S24 for Summer 2024.",
+                        "example": "S24"
+                    },
+                    "equity": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Equity as shown (equity)",
+                        "description": "Only from Y Combinator: The equity (stock options) range as YC shows it, such as 0.25% - 1.00%. Empty when the job offers none or does not say.",
+                        "example": "0.07% - 0.30%"
+                    },
+                    "visa": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Visa terms (visa)",
+                        "description": "Only from Y Combinator: The visa terms YC states for the job: Will sponsor, US citizenship/visa not required, or US citizen/visa only.",
+                        "example": "US citizen/visa only"
+                    },
+                    "schoolYear": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Student year (schoolYear)",
+                        "description": "Only from Y Combinator: For an internship, the school year it asks for: Any, Freshman and above, Junior and above.",
+                        "example": null
+                    },
+                    "companyOneLiner": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "What it does (companyOneLiner)",
+                        "description": "Only from Y Combinator: The company's one-line description on YC.",
+                        "example": "AI call centers"
+                    },
+                    "teamSize": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ],
+                        "title": "Team size (teamSize)",
+                        "description": "Only from Y Combinator: How many people the company has, from YC's directory.",
+                        "example": 10
+                    },
+                    "workAtAStartupUrl": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Work at a Startup (workAtAStartupUrl)",
+                        "description": "Only from Y Combinator: The same job on Work at a Startup (workatastartup.com/jobs/<jobId>).",
+                        "example": "https://www.workatastartup.com/jobs/121729"
+                    },
+                    "remoteIn": {
+                        "type": [
+                            "array",
+                            "null"
+                        ],
+                        "title": "Hires remotely in (remoteIn)",
+                        "description": "Only from Wellfound: For a remote job, the countries, regions or towns it hires remotely in; Everywhere when it is open anywhere. Empty for an office job.",
+                        "example": [
+                            "Brazil",
+                            "United Kingdom",
+                            "Germany"
+                        ],
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "companyBadges": {
+                        "type": [
+                            "array",
+                            "null"
+                        ],
+                        "title": "Startup badges (companyBadges)",
+                        "description": "Only from Wellfound: Wellfound's marks on the startup: Actively Hiring, YC Funded, Top Investors, Valuation $1B+, Recently funded, Growing fast, B2B or B2C, Highly rated, and how fast it answers applications.",
+                        "example": [
+                            "Actively Hiring",
+                            "B2B",
+                            "Valuation $500M+"
+                        ],
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "relocation": {
+                        "type": [
+                            "boolean",
+                            "null"
+                        ],
+                        "title": "Pays relocation? (relocation)",
+                        "description": "Only from Wellfound: true when the job page says relocation is allowed, false when not. With details on and for checked links.",
+                        "example": false
+                    },
+                    "timezones": {
+                        "type": [
+                            "array",
+                            "null"
+                        ],
+                        "title": "Preferred time zones (timezones)",
+                        "description": "Only from Wellfound: The time zones the startup prefers for the job, such as Pacific Time. With details on, when the page names them.",
+                        "example": [
+                            "Pacific Time",
+                            "Eastern Time"
+                        ],
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "industries": {
+                        "type": [
+                            "array",
+                            "null"
+                        ],
+                        "title": "Startup markets (industries)",
+                        "description": "Only from Wellfound: The markets the startup works in, from the job page's markup. With details on.",
+                        "example": [
+                            "B2B",
+                            "Search"
+                        ],
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "companyLocation": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Headquarters (companyLocation)",
+                        "description": "Only from Wellfound: The startup's home town, which a remote job's page names. With details on.",
+                        "example": "San Francisco"
+                    },
+                    "fundingRounds": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ],
+                        "title": "Funding rounds (fundingRounds)",
+                        "description": "Only from Wellfound: How many funding rounds Wellfound records. With details on.",
+                        "example": 3
+                    },
+                    "latestRound": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Newest round (latestRound)",
+                        "description": "Only from Wellfound: The newest round Wellfound records, such as Seed or Series B. With details on.",
+                        "example": "Series A"
+                    },
+                    "latestRoundDate": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Round month (latestRoundDate)",
+                        "description": "Only from Wellfound: The month of that round, as YYYY-MM. With details on.",
+                        "example": "2022-02"
+                    },
+                    "reposted": {
+                        "type": [
+                            "boolean",
+                            "null"
+                        ],
+                        "title": "Reposted? (reposted)",
+                        "description": "Only from Wellfound: true when the job page says Reposted rather than Posted. With details on and for checked links.",
+                        "example": true
+                    },
+                    "contractDurationMin": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ],
+                        "title": "Shortest term (contractDurationMin)",
+                        "description": "Only from Welcome to the Jungle: For an internship, work-study or fixed-term job: the shortest duration, in months.",
+                        "example": 6
+                    },
+                    "contractDurationMax": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ],
+                        "title": "Longest term (contractDurationMax)",
+                        "description": "Only from Welcome to the Jungle: The longest duration, in months.",
+                        "example": 6
+                    },
+                    "jobLanguage": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Language of the ad (jobLanguage)",
+                        "description": "Only from Welcome to the Jungle: The two-letter code of the language the ad is written in: fr, en, de, es...",
+                        "example": "fr"
+                    },
+                    "keyMissions": {
+                        "type": [
+                            "array",
+                            "null"
+                        ],
+                        "title": "Key missions (keyMissions)",
+                        "description": "Only from Welcome to the Jungle: The job's three key missions as the site lists them, often in French.",
+                        "example": [
+                            "Cadrer les besoins fonctionnels en échangeant avec les équipes métier, IT et direction pour définir des analyses pertinentes."
+                        ],
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "benefits": {
+                        "type": [
+                            "array",
+                            "null"
+                        ],
+                        "title": "Perks (benefits)",
+                        "description": "Only from Welcome to the Jungle: The perks the company lists, such as days at home, meal vouchers or a health plan (45% of jobs).",
+                        "example": [
+                            "Between 3-4 days at home",
+                            "Between 2-3 days at home",
+                            "Between 1-2 days at home"
+                        ],
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "tools": {
+                        "type": [
+                            "array",
+                            "null"
+                        ],
+                        "title": "Tools used (tools)",
+                        "description": "Only from Welcome to the Jungle: With details on: the tools and technologies the job uses.",
+                        "example": [
+                            "Grafana",
+                            "GitLab"
+                        ],
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "startDate": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Start date (startDate)",
+                        "description": "Only from Welcome to the Jungle: With details on: when the job starts, when the employer says (rarely).",
+                        "example": null
+                    },
+                    "sectors": {
+                        "type": [
+                            "array",
+                            "null"
+                        ],
+                        "title": "Job sectors (sectors)",
+                        "description": "Only from eFinancialCareers: The sectors eFinancialCareers files the job under, with the sub-sector after a colon.",
+                        "example": [
+                            "Trading: Capital markets",
+                            "Capital Markets"
+                        ],
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "postedByIndustry": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Industry (postedByIndustry)",
+                        "description": "Only from eFinancialCareers: That profile's industry on eFinancialCareers, such as Asset Management or HR & Recruitment.",
+                        "example": "Accounting & Finance"
+                    },
+                    "experience": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Experience asked (experience)",
+                        "description": "Only from Naukri: The experience the job asks for, as Naukri shows it.",
+                        "example": "5-9 Yrs"
+                    },
+                    "firstPostedAt": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "First posted on (firstPostedAt)",
+                        "description": "Only from Naukri: The day Naukri first listed the job, read from its job ID (it starts with the day, DDMMYY). Earlier than postedAt when the employer posted the job again.",
+                        "example": "2026-09-04"
+                    },
+                    "vacancies": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ],
+                        "title": "Openings (vacancies)",
+                        "description": "Only from Naukri: How many people the employer is hiring for the job, when it says.",
+                        "example": 2
+                    },
+                    "walkIn": {
+                        "type": [
+                            "boolean",
+                            "null"
+                        ],
+                        "title": "Walk-in interview? (walkIn)",
+                        "description": "Only from Naukri: true for a walk-in job: candidates come to an interview on given days.",
+                        "example": false
+                    },
+                    "views": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ],
+                        "title": "Times viewed (views)",
+                        "description": "Only from Naukri: How many times the job was viewed on Naukri, with details on.",
+                        "example": 5554
+                    },
+                    "site": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Country site (site)",
+                        "description": "Only from foundit: The foundit site the job belongs to: foundit.in, founditgulf.com, foundit.sg, foundit.com.ph, foundit.my, foundit.id, foundit.hk, monster.co.th or monster.com.vn.",
+                        "example": "foundit.in"
+                    },
+                    "employerType": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Posted by (employerType)",
+                        "description": "Only from foundit: company when the employer posted the job, consultant when a recruitment agency did.",
+                        "example": "company"
+                    },
+                    "jobSource": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Listing source (jobSource)",
+                        "description": "Only from foundit: foundit when the employer posted the job on foundit, syndicated when foundit copied it from another job site (mostly LinkedIn), whose page applyUrl then points to. About 98% of the newest jobs are syndicated.",
+                        "example": "syndicated"
+                    },
+                    "qualifications": {
+                        "type": [
+                            "array",
+                            "null"
+                        ],
+                        "title": "Education asked (qualifications)",
+                        "description": "Only from foundit: With full details on: the qualifications the employer lists, which only some jobs posted on foundit itself do; syndicated jobs have none.",
+                        "example": [
+                            "Bachelor Of Technology (B.Tech/B.E)"
+                        ],
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "jobFunctions": {
+                        "type": [
+                            "array",
+                            "null"
+                        ],
+                        "title": "Job functions (jobFunctions)",
+                        "description": "Only from Instahyre: Instahyre's functions for the job inside its category, such as Data Engineering / DWH / ETL.",
+                        "example": [
+                            "Data Engineering / DWH / ETL"
+                        ],
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "companyEmployees": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Headcount (companyEmployees)",
+                        "description": "Only from Instahyre: The company's headcount band on Instahyre: 0-10, 10-50, 50-200, 200-500, 500-1000 or 1000+.",
+                        "example": "1000+"
+                    },
+                    "relocationOk": {
+                        "type": [
+                            "boolean",
+                            "null"
+                        ],
+                        "title": "Other cities OK? (relocationOk)",
+                        "description": "Only from Instahyre: true when the company also considers candidates who live in another city.",
+                        "example": false
+                    },
+                    "agencyName": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Posted by agency (agencyName)",
+                        "description": "Only from Instahyre: The recruiting agency that posted the job for the company, when it was not posted by the company itself.",
+                        "example": "Zyoin"
+                    },
+                    "internshipMonths": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ],
+                        "title": "Months long (internshipMonths)",
+                        "description": "Only from Instahyre: An internship's length in months.",
+                        "example": 6
+                    },
+                    "internshipStart": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Starts on (internshipStart)",
+                        "description": "Only from Instahyre: An internship's start date (YYYY-MM-DD).",
+                        "example": "2026-11-16"
+                    },
+                    "companyIndustry": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Industry (companyIndustry)",
+                        "description": "Only from Instahyre: With full details on: the company's industry on Instahyre.",
+                        "example": "Media / Entertainment"
+                    },
+                    "companyLinkedin": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "LinkedIn page (companyLinkedin)",
+                        "description": "Only from Instahyre: With full details on: the company's LinkedIn page.",
+                        "example": "https://www.linkedin.com/company/the-walt-disney-company/"
+                    },
+                    "companyTechStack": {
+                        "type": [
+                            "array",
+                            "null"
+                        ],
+                        "title": "Tech stack (companyTechStack)",
+                        "description": "Only from Instahyre: With full details on: the tools the company lists on Instahyre.",
+                        "example": [
+                            "Python",
+                            "Snowflake",
+                            "Tableau"
+                        ],
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "companyBenefits": {
+                        "type": [
+                            "array",
+                            "null"
+                        ],
+                        "title": "Benefits (companyBenefits)",
+                        "description": "Only from Instahyre: With full details on: the benefits the company lists on Instahyre.",
+                        "example": [
+                            "Flexible work",
+                            "Healthcare insurance"
+                        ],
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "companyRatings": {
+                        "type": [
+                            "object",
+                            "null"
+                        ],
+                        "title": "All ratings (companyRatings)",
+                        "description": "Only from Instahyre: With full details on: the Glassdoor scores Instahyre shows (1 to 5): overall, workLifeBalance, salaryAndBenefits, culture, careerGrowth, diversity, recommendToFriend.",
+                        "example": {
+                            "overall": 4.1,
+                            "workLifeBalance": 3.9,
+                            "culture": 4.0
+                        }
+                    },
+                    "companyPage": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Company page (companyPage)",
+                        "description": "Only from Instahyre: With full details on: the company's page on Instahyre, with all its open jobs.",
+                        "example": "https://www.instahyre.com/jobs-at-the-walt-disney-company/"
+                    },
+                    "mandatorySkills": {
+                        "type": [
+                            "array",
+                            "null"
+                        ],
+                        "title": "Must-haves (mandatorySkills)",
+                        "description": "Only from Hirist: The skills the recruiter marked as required.",
+                        "example": [
+                            "Azure",
+                            "Solution Design",
+                            "Solution Architect"
+                        ],
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "lastActiveAt": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "title": "Last active on (lastActiveAt)",
+                        "description": "Only from Cutshort: When the company last showed it is still hiring, in UTC: the date the job's own page shows as Posted. It moves forward on active jobs, so it is later than postedAt on most of them, by over a week on about a third.",
+                        "example": "2026-11-06T04:16:34.526Z"
+                    }
+                }
+            },
+            "views": {
+                "jobs": {
+                    "title": "Jobs",
+                    "description": "One row per job: what it is, where, remote or not, the pay, when it was posted, its board and its link.",
+                    "transformation": {
+                        "fields": [
+                            "title",
+                            "company",
+                            "location",
+                            "workType",
+                            "salary",
+                            "postedAt",
+                            "platform",
+                            "jobUrl"
+                        ]
+                    },
+                    "display": {
+                        "component": "table",
+                        "properties": {
+                            "title": {
+                                "label": "Job title (title)",
+                                "format": "text"
+                            },
+                            "company": {
+                                "label": "Company name (company)",
+                                "format": "text"
+                            },
+                            "location": {
+                                "label": "Main location (location)",
+                                "format": "text"
+                            },
+                            "workType": {
+                                "label": "Remote or onsite (workType)",
+                                "format": "text"
+                            },
+                            "salary": {
+                                "label": "Pay summary (salary)",
+                                "format": "text"
+                            },
+                            "postedAt": {
+                                "label": "Posted on (postedAt)",
+                                "format": "date"
+                            },
+                            "platform": {
+                                "label": "Job board (platform)",
+                                "format": "text"
+                            },
+                            "jobUrl": {
+                                "label": "Job link (jobUrl)",
+                                "format": "link"
+                            }
+                        }
+                    }
+                },
+                "details": {
+                    "title": "Details",
+                    "description": "The description, job type, department, pay as numbers, apply link and IDs of each job.",
+                    "transformation": {
+                        "fields": [
+                            "title",
+                            "company",
+                            "platform",
+                            "description",
+                            "employmentType",
+                            "department",
+                            "salaryMin",
+                            "salaryMax",
+                            "salaryCurrency",
+                            "experienceMin",
+                            "otherLocations",
+                            "applyUrl",
+                            "companyWebsite",
+                            "jobId",
+                            "checkedAt"
+                        ]
+                    },
+                    "display": {
+                        "component": "table",
+                        "properties": {
+                            "title": {
+                                "label": "Job title (title)",
+                                "format": "text"
+                            },
+                            "company": {
+                                "label": "Company name (company)",
+                                "format": "text"
+                            },
+                            "platform": {
+                                "label": "Job board (platform)",
+                                "format": "text"
+                            },
+                            "description": {
+                                "label": "Job description (description)",
+                                "format": "text"
+                            },
+                            "employmentType": {
+                                "label": "Job type (employmentType)",
+                                "format": "text"
+                            },
+                            "department": {
+                                "label": "Hiring department (department)",
+                                "format": "text"
+                            },
+                            "salaryMin": {
+                                "label": "Lowest pay (salaryMin)",
+                                "format": "number"
+                            },
+                            "salaryMax": {
+                                "label": "Highest pay (salaryMax)",
+                                "format": "number"
+                            },
+                            "salaryCurrency": {
+                                "label": "Pay currency (salaryCurrency)",
+                                "format": "text"
+                            },
+                            "experienceMin": {
+                                "label": "Least years (experienceMin)",
+                                "format": "text"
+                            },
+                            "otherLocations": {
+                                "label": "Other locations (otherLocations)",
+                                "format": "text"
+                            },
+                            "applyUrl": {
+                                "label": "Apply link (applyUrl)",
+                                "format": "link"
+                            },
+                            "companyWebsite": {
+                                "label": "Company website (companyWebsite)",
+                                "format": "link"
+                            },
+                            "jobId": {
+                                "label": "Job ID (jobId)",
+                                "format": "text"
+                            },
+                            "checkedAt": {
+                                "label": "Checked at (checkedAt)",
+                                "format": "text"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "keyValueStore": {
+            "actorKeyValueStoreSchemaVersion": 1,
+            "title": "Run summary",
+            "description": "The OUTPUT record: the boards searched, how many jobs matched and were saved on each, jobs listed on two boards and saved once, how long each board took, notes about how the input was read and the settings used.",
+            "collections": {
+                "summary": {
+                    "title": "Run summary (OUTPUT)",
+                    "description": "Status, message, totals, and one entry per board with its own counts, seconds, message and errors.",
+                    "key": "OUTPUT"
+                }
+            }
+        }
+    }
+}

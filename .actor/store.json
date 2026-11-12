@@ -1,0 +1,94 @@
+{
+ "$comment": "Listing metadata, applied by scripts/store-metadata.mjs in CI (manager/rules/SEO.md). actorId pins the actor the first deploy created, so CI updates it by ID and a rename of name in actor.json keeps the same actor.",
+ "seoTitle": "Job Search API for 18 Job Boards and ATS Sites",
+ "seoDescription": "Search Greenhouse, Lever, Workday, Ashby, Hiring Cafe, YC, Wellfound and 11 more job boards in one run. Newest jobs first, each listed once, live data.",
+ "actorPermissionLevel": "LIMITED_PERMISSIONS",
+ "isPublic": false,
+ "defaultRunOptions": {
+  "build": "latest",
+  "memoryMbytes": 4096,
+  "timeoutSecs": 900
+ },
+ "defaultRunOptions$comment": "Provisional 4 GB (one CPU core: the 18 boards are read at once in one process, 128 s of CPU and 0.75 GB peak on a laptop for data analyst in London, 2026-11-13); to be measured on Apify at 2 and 4 GB before publishing. timeoutSecs 900: secondsPerBoard (240) caps the search, the rest is details and saving.",
+ "exampleRunInput": {
+  "searchTerms": [
+   "software engineer"
+  ],
+  "platforms": [
+   "hiringcafe",
+   "greenhouse",
+   "ashby",
+   "ycombinator",
+   "wellfound"
+  ],
+  "maxJobs": 100
+ },
+ "pricing": {
+  "$comment": "2026-11-13, PROPOSED, apply false until the unpriced cost of a run is measured on Apify. Rule: rules/SEO.md section 16. Closest rival: agentx/all-jobs-scraper (42 platforms, 204 u30): $0.0035 a job + $0.01 start on FREE; job is 14% under it. Others with 80+ u30: fantastic-jobs API $0.012 + $0.01, feed $0.0025 + $0.10, jobo $0.004, hirebase $0.005, factpipe $0.005, yugenox $0.002, memo23 $0.004 + $0.03, bovi $0.0015, jtpalms $0.003. board: one per board a search reads, charged as the run starts (ats_jobs.many.charge_boards), because a search scans every board whatever it saves; flat on every plan like start fees. No apify-actor-start: the board fee is the start fee. Gentle ladder (owner, 2026-10-29) on job and job-details.",
+  "apply": false,
+  "pricingInfos": [
+   {
+    "pricingModel": "PAY_PER_EVENT",
+    "reasonForChange": "First pricing",
+    "pricingPerEvent": {
+     "actorChargeEvents": {
+      "job": {
+       "eventTitle": "Job",
+       "eventDescription": "One saved job row: title, company, places, work type, job type, pay, posting date, the board it came from and its links. Also one checked job link that is closed or not found.",
+       "isPrimaryEvent": true,
+       "eventTieredPricingUsd": {
+        "FREE": {
+         "tieredEventPriceUsd": 0.003
+        },
+        "BRONZE": {
+         "tieredEventPriceUsd": 0.003
+        },
+        "SILVER": {
+         "tieredEventPriceUsd": 0.0027
+        },
+        "GOLD": {
+         "tieredEventPriceUsd": 0.0024
+        },
+        "PLATINUM": {
+         "tieredEventPriceUsd": 0.0024
+        },
+        "DIAMOND": {
+         "tieredEventPriceUsd": 0.0024
+        }
+       }
+      },
+      "job-details": {
+       "eventTitle": "Job with details",
+       "eventDescription": "One saved job row with full details on: everything in a Job row plus the description as text and HTML, pay as numbers with its currency, and the address.",
+       "eventTieredPricingUsd": {
+        "FREE": {
+         "tieredEventPriceUsd": 0.004
+        },
+        "BRONZE": {
+         "tieredEventPriceUsd": 0.004
+        },
+        "SILVER": {
+         "tieredEventPriceUsd": 0.0036
+        },
+        "GOLD": {
+         "tieredEventPriceUsd": 0.0032
+        },
+        "PLATINUM": {
+         "tieredEventPriceUsd": 0.0032
+        },
+        "DIAMOND": {
+         "tieredEventPriceUsd": 0.0032
+        }
+       }
+      },
+      "board": {
+       "eventTitle": "Board searched",
+       "eventDescription": "Charged once for each job board a search reads, when the run starts: 18 when every board is searched. It pays for reading every company on that board, whatever the search saves. Checking job links charges none.",
+       "eventPriceUsd": 0.005
+      }
+     }
+    }
+   }
+  ]
+ }
+}

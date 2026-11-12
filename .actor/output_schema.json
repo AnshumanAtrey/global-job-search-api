@@ -1,0 +1,20 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Job Boards Search output",
+    "description": "The jobs found on every board searched, one row per job, newest first, in the default dataset (switch between the Jobs and Details views), plus a run summary record.",
+    "type": "object",
+    "properties": {
+        "jobs": {
+            "type": "string",
+            "title": "Jobs found (jobs)",
+            "description": "Every saved job, newest first across all boards searched, each job once: title, company, places, remote or office, job type, published pay, posting date, the board it came from and its links; with details on, the description. Export as JSON, CSV or Excel.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary (summary)",
+            "description": "The OUTPUT record in the default key-value store: the boards searched, the jobs matched and saved on each, jobs listed on two boards and saved once, how long each board took, notes about how the input was read and the settings used.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/OUTPUT"
+        }
+    }
+}
